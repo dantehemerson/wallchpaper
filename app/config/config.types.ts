@@ -3,11 +3,13 @@ export type Configs = {
   defaultConfig: ConfigFile
 }
 
+export type ConfigApp = {
+  time?: string
+  folders?: string[]
+}
+
 export type ConfigFile = {
-  config?: {
-    time?: string
-    folders?: string[]
-  }
+  config?: ConfigApp
 }
 
 export type ConfigModule = {

@@ -1,43 +1,25 @@
-import { spawn } from 'child_process'
-import * as fs from 'fs'
-import * as path from 'path'
-import * as cron from 'cron'
+import cron from 'cron'
+import { Config } from './config/config'
+import { System } from './system'
+import { WallpaperManager } from './wallpaper.manager'
 
 const CronJob = cron.CronJob
 
-const folder = '/home/dantehemerson/Pictures/wallpapers'
+const system = new System()
+const config = new Config()
+config.setup()
 
-const supportedExts = ['.png', '.jpg', '.jpeg']
+const wallpaperManager = new WallpaperManager(config.getConfig())
 
-function filterPathsByExtension(directory: string, extensions: string[] = supportedExts) {
-  const files = fs.readdirSync(directory)
-  return files.filter(file => extensions.includes(path.extname(file)))
-}
+console.log('La configuracion es', config.getConfig())
 
-function getFullFilePath(folder: string, filePath: string) {
-  return `file://${path.join(folder, filePath)}`
-}
-
-function setWallpaper(filePath: string) {
-  spawn('gsettings', ['set', 'org.gnome.desktop.background', 'picture-uri', filePath])
-}
-
-const wallpapers = filterPathsByExtension(folder)
-
-function getRandomWallpaper(folder, wallpapers: string[]) {
-  const index = Math.floor(Math.random() * wallpapers.length)
-
-  return getFullFilePath(folder, wallpapers[index])
-}
-
-console.log('Dante: wallpapers', wallpapers)
-
-const changeWallpaperJob = new CronJob('0 */1 * * * *', () => {
-  setWallpaper(getRandomWallpaper(folder, wallpapers))
+const changeWallpaperJob = new CronJob(config.getConfig().time, () => {
+  const wallpaperPath = wallpaperManager.next()
+  console.log('Dante: wallpaperPath', wallpaperPath)
+  system.setWallpaper(wallpaperPath)
 })
 
 changeWallpaperJob.start()
-// const commands = [, ]
 
 process.on('SIGINT', () => {
   changeWallpaperJob.stop()
