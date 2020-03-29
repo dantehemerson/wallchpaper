@@ -1,27 +1,14 @@
-# tsc-simple-starter
+# Wallchpaper
 
-Typescript Basic Template 
+Change wallpaper after an adjustable time.
 
-# Use
+## Features
+* Change wallpaper
 
-```
-git clone https://github.com/dantehemerson/tsc-simple-starter.git --depth=1 <project-name>
-```
 
-The move to your project
+## Comming features
+* Random images from unsplash(or another image service)
 
-```
-cd <project-name>
-```
 
-and remove repo
-
-```
-rm -rf .git
-```
-
-and start yours
-
-```
-git init
-```
+### Supported Desktop Enviroments:
+  - GNOME
