@@ -1,41 +1,44 @@
-import get from 'lodash.get'
 import vm from 'vm'
 import { notify } from '../notify'
-import { Config } from './config.types'
+import { Configs, ConfigFile, ConfigModule } from './config.types'
+import { configFile } from './paths'
+import mergeConfigs from 'lodash.merge'
 
-function validateSyntax(config: string) {
+function validateSyntax(code: string) {
   try {
-    return new vm.Script(config, { filename: '.wallch.js', displayErrors: true })
+    return new vm.Script(code, { filename: configFile, displayErrors: true })
   } catch (error) {
     notify(error)
-    return undefined
   }
 }
 
-function extract(script?: vm.Script): Record<string, any> {
-  const module: Record<string, any> = {}
-  get(script, 'runInNewContext', () => {})({ module })
+function extract(script?: vm.Script): ConfigFile {
+  const module: ConfigModule = {}
+  const context = vm.createContext({ module })
+
+  script.runInNewContext && script.runInContext(context)
 
   if (!module.exports) {
-    throw new Error('Error reading configuration: `module.exports` not set')
+    throw new Error('Error reading Wallchpaper configuration: `module.exports` not set')
   }
-
   return module.exports
 }
 
-export function extractDefault(config: string) {
-  return extract(validateSyntax(config))
+export function extractDefault(configCode: string): ConfigFile {
+  return extract(validateSyntax(configCode))
 }
 
-export function init(config: Config) {
-  const script = validateSyntax(config.userConfig)
+export function init(configs: Configs) {
+  const script = validateSyntax(configs.userConfig)
   if (script) {
-    const configFile = extract(script)
+    const userConfigFile = extract(script)
 
-    if (!configFile.config) {
-      return config.defaultConfig
+    if (!userConfigFile.config) {
+      return configs.defaultConfig
     }
-    return configFile
+
+    // Replace default config keys with user config
+    return mergeConfigs(configs.defaultConfig, userConfigFile)
   }
-  return config.defaultConfig
+  return configs.defaultConfig
 }

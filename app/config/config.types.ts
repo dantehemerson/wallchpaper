@@ -1,4 +1,15 @@
-export type Config = {
+export type Configs = {
   userConfig: string
-  defaultConfig: Record<string, any>
+  defaultConfig: ConfigFile
+}
+
+export type ConfigFile = {
+  config?: {
+    time?: string
+    folders?: string[]
+  }
+}
+
+export type ConfigModule = {
+  exports?: ConfigFile
 }

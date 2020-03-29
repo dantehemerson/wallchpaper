@@ -1,18 +1,17 @@
 import { readFileSync } from 'fs'
 import get from 'lodash.get'
 import { notify } from '../notify'
-import { Config } from './config.types'
+import { ConfigFile, Configs } from './config.types'
 import { extractDefault, init } from './init'
 import { configPath, defaultConfigPath } from './paths'
 
-let defaultConfig: Record<string, any> | undefined
+let defaultConfig: ConfigFile | undefined
 
-function _importConfig(): Config {
+function importConfigs(): Configs {
   try {
     const defaultConfigRaw = readFileSync(defaultConfigPath, 'utf8')
     const defaultConfigParsed = extractDefault(defaultConfigRaw)
 
-    // Import user config
     try {
       const userConfig = readFileSync(configPath, 'utf8')
       return {
@@ -31,10 +30,10 @@ function _importConfig(): Config {
 }
 
 export function importConfig() {
-  const imported = _importConfig()
-  defaultConfig = get(imported, 'defaultConfig')
+  const importedConfigs = importConfigs()
+  defaultConfig = get(importedConfigs, 'defaultConfig')
 
-  const result = init(imported)
+  const result = init(importedConfigs)
 
   return result
 }
