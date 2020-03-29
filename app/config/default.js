@@ -1,4 +1,6 @@
 module.exports = {
-  time: '0 */1 * * * *',
-  folders: []
+  config: {
+    time: '0 */1 * * * *',
+    folders: []
+  }
 }
