@@ -1,12 +1,25 @@
 {
   "name": "wallchpaper",
   "version": "0.0.1",
-  "description": "",
+  "description": "Change wallpaper after an adjustable time",
   "author": "Dante Calderon<mail@dantecalderon.dev>",
+  "bin": "dist/index.js",
+  "license": "MIT",
   "scripts": {
     "start": "nodemon",
+    "build": "tsc",
     "test": "jest"
   },
+  "keywords": [
+    "wallpaper",
+    "wallpaper-changes",
+    "changer",
+    "linux",
+    "linux-app",
+    "cli-app",
+    "GNOME",
+    "Desktop Enviroment"
+  ],
   "devDependencies": {
     "@types/cron": "^1.7.2",
     "@types/jest": "^25.1.4",
