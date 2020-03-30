@@ -5,6 +5,9 @@ import { ConfigApp } from './config/config.types'
 
 const supportedExtensions = ['.png', '.jpg', '.jpeg']
 
+// If length of wallpapers is less than this then load more
+const whereReload = 10
+
 export class WallpaperManager {
   private wallpaperPaths: string[] // urls
   private config: ConfigApp
@@ -38,7 +41,13 @@ export class WallpaperManager {
   }
 
   next(): string {
-    return this.wallpaperPaths.shift()
+    const wallpaperPath = this.wallpaperPaths.shift()
+
+    if (this.wallpaperPaths.length < whereReload) {
+      this.loadFromFolders()
+    }
+
+    return wallpaperPath
   }
 
   private parsePath(folder, filePath) {
