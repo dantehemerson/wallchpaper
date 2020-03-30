@@ -1,7 +1,7 @@
 import path from 'path'
 import fs from 'fs'
-import { flatArray, shuffleArray } from './utils/array'
-import { ConfigApp } from './config/config.types'
+import { flatArray, shuffleArray } from '../utils/array'
+import { ConfigApp } from '../config/config.types'
 
 const supportedExtensions = ['.png', '.jpg', '.jpeg']
 

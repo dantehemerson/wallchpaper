@@ -3,7 +3,7 @@
 import cron from 'cron'
 import { Config } from './config/config'
 import { System } from './system'
-import { WallpaperManager } from './wallpaper.manager'
+import { WallpaperManager } from './manager/wallpaper.manager'
 
 const CronJob = cron.CronJob
 

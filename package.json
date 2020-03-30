@@ -8,6 +8,7 @@
   "scripts": {
     "start": "nodemon",
     "build": "tsc",
+    "prepublish": "yarn build",
     "test": "jest"
   },
   "keywords": [
