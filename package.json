@@ -1,6 +1,6 @@
 {
   "name": "wallchpaper",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Change wallpaper after an adjustable time",
   "author": "Dante Calderon<mail@dantecalderon.dev>",
   "bin": "dist/index.js",
