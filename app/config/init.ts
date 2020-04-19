@@ -1,5 +1,5 @@
 import vm from 'vm'
-import { notify } from '../notify'
+import { notify } from '../logger'
 import { Configs, ConfigFile, ConfigModule } from './config.types'
 import { configFile } from './paths'
 import mergeConfigs from 'lodash.merge'

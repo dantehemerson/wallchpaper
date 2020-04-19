@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs'
 import get from 'lodash.get'
-import { notify } from '../notify'
+import { notify } from '../logger'
 import { ConfigFile, Configs } from './config.types'
 import { extractDefault, init } from './init'
 import { configPath, defaultConfigPath } from './paths'

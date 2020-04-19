@@ -1,14 +1,14 @@
 import { CronJob } from 'cron'
 import { Config } from './config/config'
-import { System } from './system'
-import { WallpaperManager } from './manager/wallpaper.manager'
+import { WallpaperManager } from './wallpaper.manager'
+import { DesktopManager } from './desktop-managers/desktop-manager.interface'
 
 export class App {
   private readonly changeWallpaperJob: CronJob
 
   constructor(
     private readonly config: Config,
-    private readonly system: System,
+    private readonly desktopManager: DesktopManager,
     private readonly wallpaperManager: WallpaperManager
   ) {
     this.changeWallpaperJob = new CronJob(this.config.getConfig().time, this.changeSystemWallpaper.bind(this))
@@ -16,7 +16,7 @@ export class App {
 
   private changeSystemWallpaper() {
     const wallpaperPath = this.wallpaperManager.next()
-    this.system.setWallpaper(wallpaperPath)
+    this.desktopManager.setWallpaper(wallpaperPath)
   }
 
   start() {

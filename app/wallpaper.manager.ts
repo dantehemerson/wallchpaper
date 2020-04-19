@@ -1,7 +1,7 @@
 import path from 'path'
 import fs from 'fs'
-import { flatArray, shuffleArray } from '../utils/array'
-import { ConfigApp } from '../config/config.types'
+import { flatArray, shuffleArray } from './utils/array'
+import { ConfigApp } from './config/config.types'
 
 const supportedExtensions = ['.png', '.jpg', '.jpeg']
 
@@ -10,9 +10,8 @@ const whereReload = 10
 
 export class WallpaperManager {
   private wallpaperPaths: string[] // urls
-  private config: ConfigApp
 
-  constructor(config: ConfigApp) {
+  constructor(private readonly config: ConfigApp) {
     this.wallpaperPaths = []
     this.config = config
 
