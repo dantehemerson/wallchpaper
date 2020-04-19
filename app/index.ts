@@ -1,11 +1,9 @@
 #!/usr/bin/env node
 
-import cron from 'cron'
 import { Config } from './config/config'
 import { System } from './system'
 import { WallpaperManager } from './manager/wallpaper.manager'
-
-const CronJob = cron.CronJob
+import { App } from './app'
 
 const system = new System()
 const config = new Config()
@@ -14,14 +12,10 @@ config.setup()
 
 const wallpaperManager = new WallpaperManager(config.getConfig())
 
-const changeWallpaperJob = new CronJob(config.getConfig().time, () => {
-  const wallpaperPath = wallpaperManager.next()
-  system.setWallpaper(wallpaperPath)
-})
+const app = new App(config, system, wallpaperManager)
 
-changeWallpaperJob.start()
+app.start()
 
 process.on('SIGINT', () => {
-  changeWallpaperJob.stop()
-  process.exit()
+  app.finish()
 })

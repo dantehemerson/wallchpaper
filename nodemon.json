@@ -2,5 +2,5 @@
   "ignore": ["node_modules", ".git", "**/*.test.ts", "**/*.spec.ts"],
   "watch": ["./app/**/*"],
   "ext": "ts",
-  "exec": "ts-node src/index"
+  "exec": "ts-node app/index"
 }
