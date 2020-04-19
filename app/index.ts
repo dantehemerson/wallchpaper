@@ -21,6 +21,7 @@ function main() {
 
   process.on('SIGINT', () => {
     app.finish()
+    process.exit()
   })
 }
 

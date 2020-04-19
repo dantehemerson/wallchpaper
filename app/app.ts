@@ -26,6 +26,5 @@ export class App {
   // destructor
   finish() {
     this.changeWallpaperJob.stop()
-    process.exit()
   }
 }
