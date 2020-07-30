@@ -3,7 +3,7 @@ module.exports = {
     /**
      * Schedule in cron format
      */
-    time: '0 */1 * * * *',
+    time: '* * * * * *',
 
     /**
      * Include here the folders where the images will be searched. 
@@ -11,6 +11,6 @@ module.exports = {
      * example:
      * folders: ['/home/user/Pictures']
      */
-    folders: []
+    folders: ['/home/dantehemerson/Pictures']
   }
 }

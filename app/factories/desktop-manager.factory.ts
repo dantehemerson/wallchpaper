@@ -1,22 +1,16 @@
-import { desktopValidators } from './desktop.validators'
-import { DesktopManager } from '../desktop-managers/desktop-manager.interface'
+import { DesktopManager } from '../desktop-managers/desktop-manager'
 import { DesktopManagers } from '../desktop-managers'
 
 export class DesktopManagerFactory {
-  private getDesktopManagerKey(): string {
-    const desktop = desktopValidators.find(desktopValidator => desktopValidator.isAvailable())
-    if (!desktop) {
+  getCurrentDesktopManager(): DesktopManager {
+    const ValidDesktopManager = Object.values(DesktopManagers).find(desktopManager => desktopManager.isAvailable())
+
+    if (!ValidDesktopManager) {
       throw new Error('Desktop Enviroment not supported.')
     }
 
-    console.log(`Using configuration for ${desktop.name} desktop enviroment.`)
+    console.log(`Using configuration for ${ValidDesktopManager.name} desktop enviroment.`)
 
-    return desktop.name
-  }
-
-  getCurrentDesktopManager(): DesktopManager {
-    const desktopManagerKey = this.getDesktopManagerKey()
-
-    return new DesktopManagers[desktopManagerKey]()
+    return new ValidDesktopManager()
   }
 }
