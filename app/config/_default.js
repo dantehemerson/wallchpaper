@@ -3,7 +3,7 @@ module.exports = {
     /**
      * Schedule in cron format
      */
-    time: '* * * * * *',
+    time: '0 */1 * * * *',
 
     /**
      * Include here the folders where the images will be searched. 
