@@ -36,8 +36,7 @@ export class WallpaperManager {
   }
 
   reaload() {
-    const filePaths = this.loadFilePathsFromFolders()
-    this.wallpaperPaths = filePaths
+    this.wallpaperPaths = this.loadFilePathsFromFolders()
   }
 
   next(): string {
