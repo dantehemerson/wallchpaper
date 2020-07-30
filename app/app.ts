@@ -1,7 +1,7 @@
 import { CronJob } from 'cron'
 import { Config } from './config/config'
 import { WallpaperManager } from './wallpaper.manager'
-import { DesktopManager } from './desktop-managers/desktop-manager.interface'
+import { DesktopManager } from './desktop-managers/desktop-manager'
 
 export class App {
   private readonly changeWallpaperJob: CronJob

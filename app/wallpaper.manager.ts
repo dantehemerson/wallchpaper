@@ -1,6 +1,6 @@
 import path from 'path'
 import fs from 'fs'
-import { flatArray, shuffleArray } from './utils/array'
+import { shuffleArray } from './utils/array'
 import { ConfigApp } from './config/config.types'
 
 const supportedExtensions = ['.png', '.jpg', '.jpeg']
@@ -19,14 +19,15 @@ export class WallpaperManager {
   }
 
   private loadFilePathsFromFolders(): string[] {
-    return flatArray<string>(
-      this.config.folders.map(folderPath => {
+    return this.config.folders
+      .map(folderPath => {
         const files = fs.readdirSync(folderPath)
+
         return files
           .filter(file => supportedExtensions.includes(path.extname(file)))
           .map(file => this.parsePath(folderPath, file))
       })
-    )
+      .flat()
   }
 
   loadFromFolders() {
@@ -35,8 +36,7 @@ export class WallpaperManager {
   }
 
   reaload() {
-    const filePaths = this.loadFilePathsFromFolders()
-    this.wallpaperPaths = filePaths
+    this.wallpaperPaths = this.loadFilePathsFromFolders()
   }
 
   next(): string {

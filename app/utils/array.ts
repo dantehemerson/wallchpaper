@@ -12,7 +12,3 @@ export function shuffleArray<T = any>(_arreglo: T[]) {
 
   return arreglo
 }
-
-export function flatArray<T>(arreglo: T[][]): T[] {
-  return arreglo.reduce((accumulator, item) => accumulator.concat(item), [])
-}

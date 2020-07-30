@@ -11,6 +11,6 @@ module.exports = {
      * example:
      * folders: ['/home/user/Pictures']
      */
-    folders: []
+    folders: ['/home/dantehemerson/Pictures']
   }
 }
